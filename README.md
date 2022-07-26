@@ -1,16 +1,21 @@
 # Test-contracts
 
-1. To compile contracts present in ./src folder
+1. Install dependencies
+```
+> forge install
+```
+
+2. To compile contracts present in ./src folder
 ```
 > forge build
 ```
 
-2. To run tests present in ./test folder (with verbosity enabled)
+3. To run tests present in ./test folder (with verbosity enabled)
 ```
 > forge test -vvvvv
 ```
 
-3. To run script in ./script folder to deploy and invoke contracts methods on tv4 network
+4. To run script in ./script folder to deploy and invoke contracts methods on tv4 network
 ```
 export RPC_URL="<tv4 rpc url>"
 export PRIVATE_KEY="<PK>"
