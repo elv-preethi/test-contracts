@@ -6,10 +6,11 @@ import "forge-std/console.sol";
 import "forge-std/console2.sol";
 import "../src/ElvOwnable.sol";
 
-
 contract ElvOwnableTest is Test {
-
-    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
+    event OwnershipTransferred(
+        address indexed previousOwner,
+        address indexed newOwner
+    );
 
     ElvOwnable public elvOwnable;
 
@@ -66,5 +67,4 @@ contract ElvOwnableTest is Test {
         vm.prank(address(0));
         elvOwnable.renounceOwnership();
     }
-
 }

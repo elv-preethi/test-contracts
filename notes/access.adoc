@@ -1,0 +1,84 @@
+=== User and Group Permission
+
+image:https://user-images.githubusercontent.com/39742400/182435991-17eb6f67-ed5b-4dd8-b475-9363049169dc.png[access_uml]
+
+The openzeppelin {AccessControl} and {AccessControlEnumerable} contracts uses RBAC (role based access control).
+
+==== AccessControl contract
+
+* Roles are bytes32 hash digest and supports hierarchal role management.
+* Each role has role admin and set of members.
+* The role admin can add members `{grantRole}`, remove members `{revokeRole}`.
+* The members can call remove themselves from the role `{renonunceRole}`.
+* By default, DEFAULT_ADMIN_ROLE is the role `admin` for all roles and for DEFAULT_ADMIN_ROLE
+itself.
+
+* we can set contract deployer as member of DEFAULT_ADMIN_ROLE in constructor.
+ So, the contract deployer can add other members to
+ DEFAULT_ADMIN_ROLE (in case the admin needs to changed).
+* we can change admin role for other roles using `{_setupRoleAdmin}` method.
+
+==== AccessControlEnumerable contract
+
+Inherits AccessControl and allows enumerating the members of each role.
+
+==== ElvCmnRoles contract
+
+Contains library {ElvCmnRoles} contains user and group roles definition.
+
+```
+user roles :
+USER_SEE_ROLE
+USER_ACCESS_ROLE
+USER_EDIT_ROLE
+GROUP_ROLE => members are group contract address
+
+group roles :
+GROUP_MANAGER_ROLE
+GROUP_USER_SEE_ROLE
+GROUP_USER_ACCESS_ROLE
+GROUP_USER_EDIT_ROLE
+```
+
+
+==== ElvGroup contract
+
+* ElvGroup contract creates and manages group permisssions. The group consists of manager, users with see, access, edit permissions.
+* The contract deployer is set as DEFAULT_ADMIN_ROLE in the constructor. The roles admin hierarchy is set as below:
+
+```
+// `DEFAULT_ADMIN_ROLE` is admin role for `GROUP_MANAGER_ROLE` and
+// `GROUP_MANAGER_ROLE` is admin role for `GROUP_USER_SEE_ROLE`,
+// `GROUP_USER_ACCESS_ROLE`, `GROUP_USER_EDIT_ROLE`
+_setRoleAdmin(ElvCmnRoles.GROUP_MANAGER_ROLE, DEFAULT_ADMIN_ROLE);
+_setRoleAdmin(
+   ElvCmnRoles.GROUP_USER_SEE_ROLE, ElvCmnRoles.GROUP_MANAGER_ROLE
+);
+_setRoleAdmin(
+  ElvCmnRoles.GROUP_USER_ACCESS_ROLE, ElvCmnRoles.GROUP_MANAGER_ROLE
+);
+_setRoleAdmin(
+  ElvCmnRoles.GROUP_USER_EDIT_ROLE, ElvCmnRoles.GROUP_MANAGER_ROLE
+);`
+
+```
+
+==== ElvAccess contract
+
+* ElvAccess contract manages permissions for indiviual and group users.
+* For indiviual users, it inherits {AccessControlEnumerable} contract method to grant role, revoke role or to check if it as the provided role.
+* For group users, the group contract address are added as member to {GROUP_ROLE} role and the group contract manages the grant role, revoke role or to check if it as the provided role.
+* {hasGroupRole} method checks if the account provided is member of the list of group address (which are members of GROUP_ROLE) and returns the corresponding user's role (it can be any of GROUP_* roles).
+
+
+=== ElvContent contract
+
+* ElvContent contract inherits ElvAccess contract.
+* It has method like `getOwnerAddr()` and `updateRequest()` to test permissions.
+* `getOwnerAddr()` can be run by individual user with `USER_SEE_ROLE` or `GROUP_USER_SEE_ROLE`
+* `updateRequest()` can be run by individual user with `USER_EDIT_ROLE` or `GROUP_USER_EDIT_ROLE`
+* tests are at link:../test/ElvContent.t.sol[here]
+
+*Note:* As of now, these contracts will be created by externally owned accounts. It checks if `msg.sender` is `tx.origin` when deploying. Since, we set the `DEFAULT_ADMIN_ROLE` to msg.sender.
+
+

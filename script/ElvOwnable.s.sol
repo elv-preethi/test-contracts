@@ -9,7 +9,6 @@ contract ElvOwnableScript is Script {
     function setUp() public {}
 
     function run() public {
-
         vm.startBroadcast();
         ElvOwnable elvOwnable = new ElvOwnable();
         vm.stopBroadcast();
