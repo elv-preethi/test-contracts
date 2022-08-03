@@ -16,8 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-#        with:
-#          submodules: recursive
+        with:
+          submodules: recursive
 
       - name: foundry-toolchain
         uses: foundry-rs/foundry-toolchain@v1
@@ -27,8 +27,8 @@ jobs:
       - name: Run install
         run: forge install
 
-      - name: Run build
-        run: forge build
+#      - name: Run build
+#        run: forge build
 
       - name: Run tests
         run: forge test -vvv
