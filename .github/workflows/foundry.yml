@@ -27,12 +27,17 @@ jobs:
       - name: Run install
         run: |
           pwd
+          cd ..
+          pwd
+          ls
           forge install
 
       - name: Run build
         run: |
             pwd
             cd ..
+            pwd
+            ls
             forge build
 
       - name: Run tests
