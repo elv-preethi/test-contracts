@@ -27,20 +27,14 @@ jobs:
       - name: Run install
         run: |
           pwd
+          forge install
           cd ./lib
           pwd
-          cd ..
-          pwd
-          forge install
+          ls openzeppelin-contracts/access/ownable.sol
+
 
       - name: Run build
-        run: |
-            pwd
-            cd ./lib
-            pwd
-            cd ..
-            pwd
-            forge build
+        run: forge build
 
       - name: Run tests
         run: forge test -vvv
