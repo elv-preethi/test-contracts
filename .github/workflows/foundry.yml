@@ -25,10 +25,15 @@ jobs:
           version: nightly
 
       - name: Run install
-        run: forge install
+        run: |
+          pwd
+          forge install
 
-#      - name: Run build
-#        run: forge build
+      - name: Run build
+        run: |
+            pwd
+            cd ..
+            forge build
 
       - name: Run tests
         run: forge test -vvv
