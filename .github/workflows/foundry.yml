@@ -29,7 +29,8 @@ jobs:
           ls ./lib
           ls ./lib/forge-std
           ls ./lib/openzeppelin-contracts
-          cat ./lib/openzeppelin-contracts/contracts/access/ownable.sol
+          ls ./lib/openzeppelin-contracts/contracts/
+          ls ./lib/openzeppelin-contracts/contracts/access
 #       - name: Install dependencies
 #         run: | 
 #           # forge install --no-git --no-commit
