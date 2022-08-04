@@ -26,7 +26,7 @@ jobs:
 
       - name: Install dependencies
         run: | 
-          forge install --no-git --no-commit
+          # forge install --no-git --no-commit
           forge install openzeppelin/openzeppelin-contracts --no-git --no-commit --quiet
       - name: Run tests
         run: forge test -vvv
