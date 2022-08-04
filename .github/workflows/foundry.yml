@@ -21,7 +21,7 @@ jobs:
           version: nightly
 
       - name: Install dependencies
-        run: forge install
+        run: forge install openzeppelin/openzeppelin-contracts
       - name: Run tests
         run: forge test -vvv
 
