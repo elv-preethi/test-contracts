@@ -3,7 +3,7 @@ pragma solidity ^0.8.0;
 
 import "./access/ElvAccess.sol";
 import "./access/ElvCmnRoles.sol";
-import "@openzeppelin/contracts/utils/Strings.sol";
+import "openzeppelin-contracts/contracts/utils/Strings.sol";
 
 contract ElvContent is ElvAccess {
     address private _owner;
