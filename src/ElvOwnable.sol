@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "openzeppelin-contracts/contracts/access/ownable.sol";
+import "openzeppelin-contracts/access/ownable.sol";
 
 contract ElvOwnable is Ownable {
     /**
