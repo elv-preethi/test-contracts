@@ -11,23 +11,28 @@ jobs:
     name: Foundry project
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
-      - name: setup git config
-        run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "<>"
+#       - name: setup git config
+#         run: |
+#           git config user.name "GitHub Actions Bot"
+#           git config user.email "<>"
 
       - name: Install Foundry
         uses: onbjerg/foundry-toolchain@v1
         with:
           version: nightly
+      
+      - name: Check folder
+        run: |
+          ls ./lib
+          ls ./lib/forge-std
 
-      - name: Install dependencies
-        run: | 
-          # forge install --no-git --no-commit
-          forge install openzeppelin/openzeppelin-contracts --no-git --no-commit --quiet
+#       - name: Install dependencies
+#         run: | 
+#           # forge install --no-git --no-commit
+#           forge install openzeppelin/openzeppelin-contracts --no-git --no-commit --quiet
       - name: Run tests
         run: forge test -vvv
 
