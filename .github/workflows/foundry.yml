@@ -28,7 +28,7 @@ jobs:
         run: |
           ls ./lib
           ls ./lib/forge-std
-
+          ls ./lib/openzeppelin-contracts
 #       - name: Install dependencies
 #         run: | 
 #           # forge install --no-git --no-commit
