@@ -14,62 +14,17 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
-#       - name: setup git config
-#         run: |
-#           git config user.name "GitHub Actions Bot"
-#           git config user.email "<>"
 
       - name: Install Foundry
         uses: onbjerg/foundry-toolchain@v1
         with:
           version: nightly
       
-      - name: Check folder
-        run: |
-          ls ./lib
-          ls ./lib/forge-std
-          ls ./lib/openzeppelin-contracts
-          ls ./lib/openzeppelin-contracts/contracts/
-          ls ./lib/openzeppelin-contracts/contracts/access
-#       - name: Install dependencies
-#         run: | 
-#           # forge install --no-git --no-commit
-#           forge install openzeppelin/openzeppelin-contracts --no-git --no-commit --quiet
+      - name: Run build
+        run: forge build
+
       - name: Run tests
-        run: |
-          forge config
-          forge remappings
-          forge test --force
+        run: forge test -vvv
 
-
-#jobs:
-#  check:
-#    name: Foundry project
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#        with:
-#          submodules: recursive
-#
-#      - name: foundry-toolchain
-#        uses: foundry-rs/foundry-toolchain@v1
-#        with:
-#          version: nightly
-#
-#      - name: Run install
-#        run: |
-#          pwd
-#          forge install
-#          cd ./lib
-#          pwd
-#          ls openzeppelin-contracts/access/ownable.sol
-#
-#
-#      - name: Run build
-#        run: forge build
-#
-#      - name: Run tests
-#        run: forge test -vvv
-#
-#      - name: Run snapshot
-#        run: forge snapshot
+      - name: Run snapshot
+        run: forge snapshot
