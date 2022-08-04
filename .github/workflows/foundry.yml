@@ -34,7 +34,10 @@ jobs:
 #           # forge install --no-git --no-commit
 #           forge install openzeppelin/openzeppelin-contracts --no-git --no-commit --quiet
       - name: Run tests
-        run: forge test -vvv
+        run: |
+          forge config
+          forge remappings
+          forge test --force
 
 
 #jobs:
