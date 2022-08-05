@@ -19,12 +19,25 @@ jobs:
         uses: onbjerg/foundry-toolchain@v1
         with:
           version: nightly
-      
+
       - name: Run build
-        run: forge build
+        run: forge build --extra-output abi --extra-output userdoc --extra-output devdoc --extra-output evm.methodIdentifiers --force
 
       - name: Run tests
         run: forge test -vvv
 
       - name: Run snapshot
         run: forge snapshot
+
+      - name: Run Slither
+        uses: crytic/slither-action@v0.1.1
+        continue-on-error: true
+        id: slither
+        with:
+          node-version: 16
+          sarif: results.sarif
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: ${{ steps.slither.outputs.sarif }}
