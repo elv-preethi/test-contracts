@@ -26,6 +26,7 @@ contract ElvContent is ElvAccess {
             return true;
         }
 
+
         bytes32 userGrpRole;
         bool ok;
         (userGrpRole, ok) = hasGroupRole(_msgSender());
